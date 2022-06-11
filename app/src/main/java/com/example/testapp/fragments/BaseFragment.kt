@@ -13,7 +13,9 @@ import androidx.fragment.app.commit
 import com.example.testapp.R
 import com.example.testapp.activity.MainActivity
 import com.example.testapp.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 abstract class BaseFragment: Fragment() {
 
     abstract fun getLayoutRes(): Int
@@ -54,8 +56,6 @@ abstract class BaseFragment: Fragment() {
 
     private fun getReqFragmentManager(): FragmentManager = (requireActivity() as MainActivity).getReqFragmentManager()
 
-    fun bottomNavVisible() = (requireActivity() as MainActivity).bottomNavVisible()
-    fun bottomNavGone() = (requireActivity() as MainActivity).bottomNavGone()
 
 
     fun initSharedPreferences() {

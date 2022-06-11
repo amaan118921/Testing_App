@@ -1,12 +1,6 @@
 <resources>
     <string name="app_name">Test App</string>
-    <string name="choose_your_account_type">Choose your account type</string>
-    <string name="patients_for_treatment">Patients for Treatment</string>
-    <string name="for_those_with_diseases">(for those with diseases)</string>
-    <string name="i_have_a_disease_and_wants_to_interact_nwith_a_doctor">I have a disease and wants to interact \nwith a doctor.</string>
-    <string name="i_am_a_doctor_and_wants_to_provide_ntreatment">I am a doctor and wants to provide \ntreatment.</string>
     <string name="for_doctors">For Doctors</string>
-    <string name="login">Login</string>
     <string name="enter_your_mobile_number_to_login">Enter your mobile number to login</string>
     <string name="_91">+91</string>
     <string name="next">Next</string>
@@ -14,8 +8,13 @@
     <string name="pie_chart">Pie Chart</string>
     <string name="verify_otp">Verify OTP</string>
     <string name="enter_the_otp_sent_on">Enter the OTP sent on</string>
-    <string name="_40">40</string>
-    <string name="_30">30</string>
-    <string name="_20">20</string>
-    <string name="_10">10</string>
+    <string name="email_id">Email ID</string>
+    <string name="password">Password</string>
+    <string name="new_user">New user?</string>
+    <string name="register">Register</string>
+    <string name="sign_up">Sign up</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="already_registered">Already Registered?</string>
+    <string name="login">Login</string>
 </resources>

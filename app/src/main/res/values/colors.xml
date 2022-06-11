@@ -8,9 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="app_theme">#ef5350</color>
-    <color name="c1">#FFA726</color>
-    <color name="c2">#66BB6A</color>
-    <color name="c3">#EF5350</color>
-    <color name="c4">#29B6F6</color>
+    <color name="theme">#0165FF</color>
+    <color name="transparent">@android:color/transparent</color>
 </resources>

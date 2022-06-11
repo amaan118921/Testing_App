@@ -4,8 +4,14 @@ import android.os.Bundle
 import android.view.View
 import com.example.testapp.R
 import com.example.testapp.utils.Constants
+import com.example.testapp.utils.makeGone
+import com.example.testapp.utils.makeVisible
+import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginFragment: BaseFragment(), View.OnClickListener {
 
     override fun getLayoutRes(): Int {
@@ -13,25 +19,57 @@ class LoginFragment: BaseFragment(), View.OnClickListener {
     }
 
 
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnNext.setOnClickListener(this)
+        tvRegister.setOnClickListener(this)
+        btnLogin.setOnClickListener(this)
+        initSharedPreferences()
     }
+
+    private fun validateAndLogin() {
+        val email = etEmailLogin.text.toString().trim()
+        val pass = etPassLogin.text.toString().trim()
+        if(email.isEmpty() || pass.isEmpty()) showToast("Enter all fields")
+        else {
+            showProgressFrame()
+            login(email, pass)
+        }
+    }
+
+    private fun login(email: String, pass: String) {
+        auth.signInWithEmailAndPassword(email, pass)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    hideProgressFrame()
+                    showToast("Logged in successfully")
+                    setSharedPreferences(Constants.EMAIL, Constants.EMAIL)
+                    replaceFragment(Constants.SPLASH_ID,null)
+                } else {
+                    hideProgressFrame()
+                    hideProgressFrame()
+                    showToast("Something went wrong, try again later...")
+                }
+            }
+    }
+
 
     override fun onClick(view: View?) {
         when(view?.id) {
-            R.id.btnNext -> validate()
+            R.id.tvRegister -> addFragment(Constants.SIGNUP_ID, null)
+            R.id.btnLogin -> validateAndLogin()
         }
     }
 
-    private fun validate() {
-        val phone = etMobile.text.toString().trim()
-        if(phone.isEmpty()) showToast("Enter 10 digit phone number")
-        else {
-            Bundle().apply {
-                putString(Constants.MOBILE, phone)
-                addFragment(Constants.OTP_ID, this)
-            }
-        }
+    private fun showProgressFrame() {
+        pfLogin.makeVisible()
     }
+
+    private fun hideProgressFrame() {
+        pfLogin.makeGone()
+    }
+
 }

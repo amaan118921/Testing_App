@@ -12,9 +12,11 @@ import com.example.testapp.utils.Constants
 import com.example.testapp.utils.makeGone
 import com.example.testapp.utils.makeVisible
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -24,11 +26,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(R.layout.activity_main)
         initSharedPreferences()
         verifyAuth()
-        btmNavigation.setOnNavigationItemSelectedListener(this)
     }
 
     private fun verifyAuth() {
-        if(getSharedPreferences(Constants.PHONE_LOCAL)!="") addFragment(Constants.HOME_ID)
+        if(getSharedPreferences(Constants.EMAIL)!="") addFragment(Constants.SPLASH_ID)
         else addFragment(Constants.LOGIN_ID)
     }
 
@@ -45,24 +46,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         getReqFragmentManager().commit {
             setReorderingAllowed(true)
             replace(R.id.fragment_container_view, Constants.getFragmentClass(id), null)
-        }
-    }
-
-
-    fun bottomNavVisible() = btmNavigation.makeVisible()
-    fun bottomNavGone() = btmNavigation.makeGone()
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
-            R.id.btm_home -> {
-                replaceFragment(Constants.HOME_ID)
-                true
-            }
-            R.id.btm_pie -> {
-                replaceFragment(Constants.PIE_ID)
-                true
-            }
-            else -> false
         }
     }
 
